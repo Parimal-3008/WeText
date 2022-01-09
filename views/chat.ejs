@@ -6,15 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/chat.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 <script  src="/socket.io/socket.io.js"></script>
 
 <body>
     <div class="heading">
-        <p class="title">
+        <!-- <p class="title"> -->
             <%= reciever %>
-        </p>
+        <!-- </p> -->
     </div>
     <div class="parent2">
         <div class="messages" id="messages">
@@ -50,12 +53,13 @@
         let sender = "<%= sender %>";
         let reciever = "<%= reciever %>";
         socket.emit("join-room",{s:sender, r:reciever});
+        let messageBody= document.getElementsByClassName("parent2");
+             messageBody.scrollTop = messageBody.scrollHeight;
         console.log(sender + " " + reciever);
         function sendMessage() {
             var msg = document.getElementById("msg").value;
             document.getElementById("msg").value = "";
-            let messageBody= document.getElementsByClassName("parent2");
-             messageBody.scrollTop = messageBody.scrollHeight;
+           
            
             if (msg) {
                 socket.emit("msg", { message: msg, s: sender ,r:reciever });
