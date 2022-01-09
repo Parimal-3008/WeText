@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="css/register.css" type="text/css">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overlock:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+</head>
+<body> 
+    <div class="parent">
+        <div class="container">
+            <form class="container1" method="post" action="/register">
+                <p class="login">
+                 Sign Up
+                </p>
+                 <input type="text" name="username" id="username" placeholder="Username" required="true">
+                 <input type="password" name="password" id="password" placeholder="Enter your password" required="true">
+                 <input type="password" name="password2" id="password2" placeholder="Confirm your password " required="true">
+                 <button type="submit" id="submit">Create account</button> 
+                 <p id="warning"><%= msg %> </p>
+             </form>
+           
+
+        </div>
+       
+
+    </div>
+   
+   <script>
+      
+   </script>
+   
+</body>
+
+
+</html>

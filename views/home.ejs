@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/home.css" type="text/css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="heading">
+        <div class="inner">
+            <div class="left">
+                <button type="submit" class="name">WETEXT</button>
+            </div>
+            <div class="right">
+                <button type="submit" class="name2" id="us">
+                    <%= user %>
+                </button>
+                <button type="submit" class="name2">Log Out</button>
+                <button type="submit" class="name2">Contact Us</button>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <% for(let i in arr) { %>
+            <% if (arr[i].username !=user) {%>
+                <div class="element" onclick="ChatNow('<%= arr[i].username %>','<%= user %>')">
+                    <%= arr[i].username %>
+                </div>
+                <% } %>
+                    <% } %>
+    </div>
+    <script>
+        function ChatNow(reciever, sender) {
+            let url =
+                "http://localhost:3000/chat?sender=" +
+                sender +
+                "&reciever=" +
+                reciever;
+            console.log(url);
+            window.location.href = url;
+        }
+    </script>
+</body>
+
+</html>

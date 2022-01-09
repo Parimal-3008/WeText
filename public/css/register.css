@@ -1,0 +1,67 @@
+.parent{
+    background: rgb(75, 138, 209);
+    height:100vh;
+    width:100vw;
+}
+
+.container
+{
+    margin: auto;
+position: absolute;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+background: white;
+border-radius: 25px;
+    border: 0px solid black;
+    height:60vh;
+    width:40vw;
+   vertical-align: middle;
+   align-items: center;
+}
+#username , #password, #password2,  #submit{
+    width: 60%;
+    display: block;
+  margin-right: auto;
+  margin-left: auto; 
+  height:6vh;
+  border-radius: 13px;
+  text-align: center;
+  border: 1px solid rgb(83, 83, 83);
+  font-size: 1em;
+  
+  }
+  #username , #password2{
+      margin-top: 5%;
+  }
+  #password, #submit{
+      margin-top: 5%;
+      
+  }
+  #submit{
+    background: rgb(75, 138, 209);
+    border: 0px;
+    color: white;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.1em;
+    
+  }
+  #submit:hover{
+      cursor: pointer;
+      box-shadow: 2px 2px 3px rgb(59, 91, 97);
+  }
+.login{
+    text-align: center;
+    font-size: 2.5em;
+    font-family: 'Overlock', cursive;
+    font-weight: bold;
+
+}
+#warning
+{
+    text-align: center;
+    margin-top: 1.5%;
+    color: red;
+}

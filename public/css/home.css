@@ -1,0 +1,103 @@
+.heading{
+    width:100vw;
+    height:10vh;
+    background: rgb(75, 138, 209);
+    margin-top: 0px;
+    text-align: center;
+    position: relative;
+}
+.inner{
+    position: absolute;
+  margin:  auto;
+  /* border: 1px solid black; */
+   height:6vh;
+    width:95vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+   display: flex;
+}
+.left, .right
+
+{
+    width:50%;
+    height:100%;
+  }
+.name
+{
+    border: none;
+       background-color: inherit;
+       text-align: left;
+    color: rgb(255, 235, 235);
+    font-family: 'Roboto Slab', serif;
+    font-size: 2em;
+    width:10vw;
+    font-weight: bold;
+}
+.name:hover{
+    color: rgb(25,25,112);
+   text-decoration: underline;
+}
+.left{
+    text-align: left;
+    justify-content: start;
+}
+.right{
+    display: flex;
+      justify-content: end;
+}
+.name2{
+    border: none;
+    /* border: 2px solid orange; */
+    background-color: inherit;
+    margin-left: 5px;
+    cursor: pointer;
+     color: white;
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.25em;
+   display: inline-block;
+}
+.name2:hover{
+    color: black;
+}
+#us{
+    font-style: italic;
+}
+#us:hover{
+    color: rgba(102, 10, 138, 0.356);
+}
+.body
+{
+   
+   
+    height:max-content;
+    width:65vw;
+    height:50vh;
+    display: block;
+  margin-right: auto;
+  margin-left: auto; 
+  margin-top: 5%;
+
+}
+.element {   
+    height: 7vh;
+    text-align: center;
+    background-color: rgb(245, 240, 240);
+    /* border: 2px solid rgb(173, 172, 172); */
+    color: blue;
+    font-size: 1.85em;
+    display: flex;
+     
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  margin-top: 2px;
+  border-radius: 10px;  
+}
+.element:hover{
+    background-color: rgb(202, 198, 198); 
+    text-decoration: underline;
+    cursor: pointer;
+}
+

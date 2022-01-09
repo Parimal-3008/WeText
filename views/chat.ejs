@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/chat.css" type="text/css" />
+    <title>Document</title>
+</head>
+<script  src="/socket.io/socket.io.js"></script>
+
+<body>
+    <div class="heading">
+        <p class="title">
+            <%= reciever %>
+        </p>
+    </div>
+    <div class="parent2">
+        <div class="messages" id="messages">
+            <% for(let i in messages) { %>
+                <% if( messages[i].sender == sender ) { %>
+                    <div class="parent-right">
+                        <div class="right">
+                            <%= messages[i].msg %>
+                        </div>
+                    </div>
+    
+                    <% } else  { %>
+                        <div class="parent-left">
+                            <div class="left">
+                                <%= messages[i].msg %>
+                            </div>
+                        </div>
+    
+                        <% } } %>
+        </div>
+
+    </div>
+  
+    <div class="inputMsg">
+        <input type="text" id="msg" placeholder="Write here..." />
+        <button type="submit" id="sendbuttton" onclick="sendMessage()">
+            Send
+        </button>
+    </div>
+    <script>
+        var socket = io();
+      
+        let sender = "<%= sender %>";
+        let reciever = "<%= reciever %>";
+        socket.emit("join-room",{s:sender, r:reciever});
+        console.log(sender + " " + reciever);
+        function sendMessage() {
+            var msg = document.getElementById("msg").value;
+            document.getElementById("msg").value = "";
+            let messageBody= document.getElementsByClassName("parent2");
+             messageBody.scrollTop = messageBody.scrollHeight;
+           
+            if (msg) {
+                socket.emit("msg", { message: msg, s: sender ,r:reciever });
+            }
+        }
+        window.onbeforeunload = function(event) {
+            socket.emit("leave-room",{s:sender, r:reciever});
+        };
+        socket.on("newmsg", function (data) {
+            console.log(data);
+            //document.getElementById('messages').innerHTML += data.message;
+            if (data.s == sender) {
+                document.getElementById("messages").innerHTML +=
+                    ' <div class="parent-right"><div class="right"> ' +
+                    data.message +
+                    " </div> </div> ";
+            } else {
+                document.getElementById("messages").innerHTML +=
+                    ' <div class="parent-left"><div class="left"> ' +
+                    data.message +
+                    " </div> </div> ";
+            }
+        });
+    </script>
+</body>
+
+</html>

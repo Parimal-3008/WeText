@@ -1,0 +1,87 @@
+.heading
+{
+    border:2px solid black;
+    width:75vw;
+        display: block;
+    margin-right: auto;
+    margin-left: auto; 
+  
+}
+.title
+{
+    font-size: 2.5rem;
+}
+.messages{
+    border:2px solid red;
+    width:75vw;
+    height: 70vh;
+        display: block;
+    margin-right: auto;
+    margin-left: auto; 
+    margin-top: 2%;
+    position: relative;
+    overflow: scroll;
+
+}
+
+.inputMsg{
+    /* border: 1px solid purple; */
+    height: 5vh;
+    border-radius: 15px;
+    width:75vw;
+    display: block;
+    margin-right: auto;
+    margin-left: auto; 
+    margin-top: 10px;
+    padding: 0;
+
+
+}
+#msg{
+    width:92%;
+    height:100%;
+    border-radius: 15px;
+    margin-top: 0;
+    padding-left: 10px;
+    font-size: large;
+}
+#sendbuttton{
+    width: 5%;
+    height: 100%;
+    /* border-radius: 50%; */
+    margin-top: 0;
+}
+.left
+{
+    min-height: 25px;
+    max-width: 75%;
+    background-color: rgb(45, 193, 238);
+    color: white;
+    float: left;
+    margin-top:15px;
+    line-break: normal;
+    margin-left: 5px;
+    padding: 5px;
+    border-radius: 0px 10px   10px 21px;
+    padding-left: 10px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    clear: both;
+}
+.right{
+    min-height: 25px;
+    max-width: 75%;
+    background-color: rgb(160, 158, 157);
+    color: rgb(10, 10, 10);
+   float: right;
+   margin-top:15px;
+   line-break:auto;
+   margin-right: 5px;
+   border-radius: 10px 0px 21px 10px;
+   padding-left: 5px;
+   padding-right: 10px;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   clear: both;
+}
