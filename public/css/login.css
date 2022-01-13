@@ -77,3 +77,8 @@ border-radius: 25px;
   
   .btn:hover {color: rgb(75, 138, 209);;}
  
+  .msg {
+      color:red;
+      text-align: center;
+      margin-top: 0%;
+  }

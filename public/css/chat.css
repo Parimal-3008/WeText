@@ -4,7 +4,7 @@
     color: white;
     width:75vw;
     height: 10vh;
-        display: block;
+        display: flex;
     margin-right: auto;
     margin-left: auto; 
     border-radius: 20px;
@@ -12,13 +12,23 @@
     padding-left: 10px;
     font-family: 'Roboto', sans-serif;
     line-height: 10vh;
+    justify-content:space-between;
   
+}
+.typing
+{
+     font-size: medium;
+     margin-left: 1vw;
+     margin-top: 2%;
+    visibility: hidden;
 }
 .title
 {
     font-size: 2.5rem;
     padding-left: 10px;
     font-family: 'Roboto', sans-serif;
+    
+  
    
 
 

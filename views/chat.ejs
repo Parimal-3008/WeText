@@ -1,89 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/chat.css" type="text/css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
-</head>
-<script  src="/socket.io/socket.io.js"></script>
+  </head>
+  <script src="/socket.io/socket.io.js"></script>
 
-<body>
+  <body>
     <div class="heading">
-        <!-- <p class="title"> -->
-            <%= reciever %>
-        <!-- </p> -->
+      <!-- <p class="title"> -->
+      <%= reciever %>
+      <p class="typing" id="typing"> typing... </p>
+      <!-- </p> -->
     </div>
     <div class="parent2">
-        <div class="messages" id="messages">
-            <% for(let i in messages) { %>
-                <% if( messages[i].sender == sender ) { %>
-                    <div class="parent-right">
-                        <div class="right">
-                            <%= messages[i].msg %>
-                        </div>
-                    </div>
-    
-                    <% } else  { %>
-                        <div class="parent-left">
-                            <div class="left">
-                                <%= messages[i].msg %>
-                            </div>
-                        </div>
-    
-                        <% } } %>
+      <div class="messages" id="messages">
+        <% for(let i in messages) { %> <% if( messages[i].sender == sender ) {
+        %>
+        <div class="parent-right">
+          <div class="right"><%= messages[i].msg %></div>
         </div>
 
+        <% } else { %>
+        <div class="parent-left">
+          <div class="left"><%= messages[i].msg %></div>
+        </div>
+
+        <% } } %>
+      </div>
     </div>
-  
+
     <div class="inputMsg">
-        <input type="text" id="msg" placeholder="Write here..." />
-        <button type="submit" id="sendbuttton" onclick="sendMessage()">
-            Send
-        </button>
+      <input type="text" id="msg" placeholder="Write here..."/>
+      <button type="submit" id="sendbuttton" onclick="sendMessage()" >
+        Send
+      </button>
     </div>
     <script>
-        var socket = io();
       
-        let sender = "<%= sender %>";
-        let reciever = "<%= reciever %>";
-        socket.emit("join-room",{s:sender, r:reciever});
-        let messageBody= document.getElementsByClassName("parent2");
-             messageBody.scrollTop = messageBody.scrollHeight;
-        console.log(sender + " " + reciever);
-        function sendMessage() {
-            var msg = document.getElementById("msg").value;
-            document.getElementById("msg").value = "";
-           
-           
-            if (msg) {
-                socket.emit("msg", { message: msg, s: sender ,r:reciever });
-            }
-        }
-        window.onbeforeunload = function(event) {
-            socket.emit("leave-room",{s:sender, r:reciever});
-        };
-        socket.on("newmsg", function (data) {
-            console.log(data);
-            //document.getElementById('messages').innerHTML += data.message;
-            if (data.s == sender) {
-                document.getElementById("messages").innerHTML +=
-                    ' <div class="parent-right"><div class="right"> ' +
-                    data.message +
-                    " </div> </div> ";
-            } else {
-                document.getElementById("messages").innerHTML +=
-                    ' <div class="parent-left"><div class="left"> ' +
-                    data.message +
-                    " </div> </div> ";
-            }
-        });
-    </script>
-</body>
+      var socket = io();
 
+      let sender = "<%= sender %>";
+      let reciever = "<%= reciever %>";
+      socket.emit("join-room", { s: sender, r: reciever });
+      let messageBody = document.getElementsByClassName("parent2");
+      messageBody.scrollTop = messageBody.scrollHeight;
+      console.log(sender + " " + reciever);
+      document.getElementById("msg").addEventListener("keydown", e=>{
+          socket.emit("typing",{set_it_to : "visible",s: sender, r: reciever});
+
+      });
+      document.getElementById("msg").addEventListener("keyup", e=>{
+          socket.emit("typing",{set_it_to : "hidden",s: sender, r: reciever});
+
+      });
+      socket.on("set",function(data){
+          console.log(data.set_it_to);
+          if(data.s == reciever)
+        document.getElementById("typing").style.visibility = data.set_it_to;
+      });
+      function sendMessage() {
+        var msg = document.getElementById("msg").value;
+        document.getElementById("msg").value = "";
+
+        if (msg) {
+          socket.emit("msg", { message: msg, s: sender, r: reciever });
+        }
+      }
+      window.onbeforeunload = function (event) {
+        socket.emit("leave-room", { s: sender, r: reciever });
+      };
+      socket.on("newmsg", function (data) {
+        console.log(data);
+        //document.getElementById('messages').innerHTML += data.message;
+        if (data.s == sender) {
+          document.getElementById("messages").innerHTML +=
+            ' <div class="parent-right"><div class="right"> ' +
+            data.message +
+            " </div> </div> ";
+        } else {
+          var myAudio = new Audio("css/iphone_sms_tone.mp3");
+          myAudio.play();
+          document.getElementById("messages").innerHTML +=
+            ' <div class="parent-left"><div class="left"> ' +
+            data.message +
+            " </div> </div> ";
+        }
+      });
+    </script>
+  </body>
 </html>

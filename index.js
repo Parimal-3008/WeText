@@ -54,7 +54,7 @@ app.get("/", async function (req, res) {
 app.get("/login", function (req, res) {
   if (req.cookies.username != null) {
     res.redirect("/");
-  } else res.render("login");
+  } else res.render("login",{msg: null});
 });
 app.get("/register", function (req, res) {
   if (req.cookies.username != null) {
@@ -120,10 +120,10 @@ async function showall(res, user2) {
   User.find({}, async function (err, arr) {
     // console.log(arr);
 
-    res.render("home", { user: user2, arr: arr });
+    res.render("home", { user: user2, arr: arr , msg: null });
   });
 }
-m1= [{sender:"parimal", msg:"Hi there"},{sender:"parimal", msg:"I am fine"},{sender:"Killua Zolydeck", msg:"Easydsfghjkljhgfdsafghjkljhgfdsadfghjkl;kjhgfdssssffffffff    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffPizzy"},{sender:"Killua Zolydeck", msg:"Hos life going?"},{sender:"parimal", msg:"Great"}];
+//m1= [{sender:"parimal", msg:"Hi there"},{sender:"parimal", msg:"I am fine"},{sender:"Killua Zolydeck", msg:"Easydsfghjkljhgfdsafghjkljhgfdsadfghjkl;kjhgfdssssffffffff    ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffPizzy"},{sender:"Killua Zolydeck", msg:"Hos life going?"},{sender:"parimal", msg:"Great"}];
 app.get("/chat", async function (req, res) {
   if (req.cookies.username == req.query.sender) {
     let s1 = await init(req.query.sender);
@@ -136,6 +136,8 @@ app.get("/chat", async function (req, res) {
     {
     //  for(let i in arr)
     //  console.log(arr[i].messages)
+    if(arr)
+    {
       console.log(arr.messages );
       res.render("chat", {
         sender: req.query.sender,
@@ -143,14 +145,19 @@ app.get("/chat", async function (req, res) {
         messages:  arr.messages,
   
       });
- 
-    });
-    
-    
+    }
+    else if(!arr)
+    {
+      res.render("chat", {
+        sender: req.query.sender,
+        reciever: req.query.reciever,
+        messages: [],
+        });
+    }
+           });   
   } else {
     res.redirect("/login");
   }
-
 }); 
 async function init(user) {
   try {
@@ -191,6 +198,14 @@ io.on("connection", function (socket) {
     socket.leave(roomid);
     console.log("left");
   });
+  socket.on("typing",async function (data){
+    let s1 = await init(data.s);
+    let s2 = await init(data.r);
+    let roomid = String;
+    if (s1 < s2) roomid = s1 + "@" + s2;
+    else roomid = s2 + "@" + s1;
+    io.sockets.in(roomid).emit("set", data);
+  })
   socket.on("msg", async function (data) {
     console.log(data);
     let s1 = await init(data.s);
