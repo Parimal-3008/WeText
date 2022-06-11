@@ -8,5 +8,5 @@ WORKDIR /usr/src/app
 
 RUN npm install
 
-ENTRYPOINT["node","index.js"]
+CMD ["node","index.js"]
 
