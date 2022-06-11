@@ -1,13 +1,12 @@
 FROM node:16-alpine
 
-WORKDIR /app
+RUN mkdir -p/usr/src/app
 
-COPY package.json /app
+COPY ./usr/src/app
 
-RUN npm ci --only=production && npm cache clean --force
+WORKDIR /usr/src/app
 
-COPY . /app
+RUN npm install
 
-CMD ["node" , "index.js"]
+ENTRYPOINT["node","index.js"]
 
-EXPOSE 8080
